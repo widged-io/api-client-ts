@@ -1,0 +1,41 @@
+{
+    "name": "@widged.io/api-client-ts",
+    "version": "1.0.0",
+    "description": "TypeScript client for widged.io public API",
+    "type": "module",
+    "keywords": [
+        "widged",
+        "api",
+        "client",
+        "typescript"
+    ],
+    "author": {
+        "name": "widged.io team",
+        "email": "dev@widged.io",
+        "site": "https://widged.io/"
+    },
+    "license": "MIT",
+    "scripts": {
+        "build": "tsc"
+    },
+    "types": "build/index.d.ts",
+    "files": [
+        "build"
+    ],
+    "exports": {
+        ".": "./build/index.js"
+    },
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "devDependencies": {
+        "@types/node": "24.2.0",
+        "typescript": "5.7.3"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/widged-io/api-client-ts.git"
+    },
+    "homepage": "https://widged.io"
+}
