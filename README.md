@@ -17,9 +17,6 @@ import { widged } from '@widged.io/api-client-ts';
 
 // Initialize the client with your API key
 const client = new widged.Client('your-api-key-here');
-
-// Access v1 API endpoints
-const v1 = client.v1;
 ```
 
 ## API Structure
@@ -33,13 +30,11 @@ Query and retrieve event data collected from your widgets:
 ```typescript
 // Search for events with filters
 const events = await client.v1.events.search({
-    filters: [
-        {
-            property: 'widgetId',
-            operator: 'eq',
-            value: 'your-widget-id'
-        }
-    ],
+    filter: {
+        property: 'widgetId',
+        operator: 'eq',
+        value: 'your-widget-id'
+    },
     limit: 10,
     offset: 0
 });
@@ -55,13 +50,11 @@ Query and retrieve record data collected from your widgets:
 ```typescript
 // Search for records with filters
 const records = await client.v1.records.search({
-    filters: [
-        {
-            property: 'widgetId',
-            operator: 'eq',
-            value: 'your-widget-id'
-        }
-    ],
+    filter: {
+        property: 'widgetId',
+        operator: 'eq',
+        value: 'your-widget-id'
+    },
     sort: [
         {
             property: 'createdAt',
@@ -115,29 +108,32 @@ Both Events and Records APIs support advanced search functionality:
 Both APIs support sorting by:
 - `createdAt` - Creation timestamp
 
+### Sorting destinations
+
+- `asc` - ascending
+- `desc` - descending
+
 ### Complex Filters
 
 You can combine filters using AND/OR logic:
 
 ```typescript
 const complexSearch = {
-    filters: [
-        {
-            mode: 'and',
-            items: [
-                {
-                    property: 'widgetId',
-                    operator: 'eq',
-                    value: 'widget-123'
-                },
-                {
-                    property: 'createdAt',
-                    operator: 'gte',
-                    value: '2024-01-01T00:00:00Z'
-                }
-            ]
-        }
-    ]
+    filter: {
+        mode: 'and',
+        items: [
+            {
+                property: 'widgetId',
+                operator: 'eq',
+                value: 'widget-123'
+            },
+            {
+                property: 'createdAt',
+                operator: 'gte',
+                value: '2024-01-01T00:00:00Z'
+            }
+        ]
+    }
 };
 ```
 
@@ -173,7 +169,7 @@ The client provides specific error types for different failure scenarios:
 ```typescript
 import { widged } from '@widged.io/api-client-ts';
 
-const client = new widged.Client('...');
+const client = new widged.Client('your-api-key-here');
 
 try {
     const events = await client.v1.events.search({});
@@ -190,12 +186,12 @@ try {
 
 ### Error Types
 
-- `NetworkError` - Network connectivity issues
+- `NetworkError` - Network connectivity issues (connection, timeout, etc.)
 - `APIError` - API-specific errors with additional context
 
 ## Configuration
 
-The client uses the following default configuration:
+The client uses the following configuration:
 
 - **Base URL**: `https://api.widged.io`
 - **Timeout**: 15 seconds
